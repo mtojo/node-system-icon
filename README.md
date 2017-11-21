@@ -8,6 +8,11 @@ Get associated file/folder icon for Node.js.
 $ npm install --save system-icon
 ```
 
+## Supported platforms
+
+* macOS 10.6 or later
+* Windows Vista or later
+
 ## Usage
 
 Get icon for file or folder path:
