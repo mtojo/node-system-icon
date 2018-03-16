@@ -14,6 +14,24 @@ using std::min;
 }
 #include <Gdiplus.h>
 
+class ComInit
+{
+public:
+  ComInit()
+  {
+    CoInitializeEx(0, COINIT_MULTITHREADED);
+  }
+
+  ~ComInit()
+  {
+    CoUninitialize();
+  }
+
+private:
+  ComInit(const ComInit&);
+  ComInit& operator=(const ComInit&);
+};
+
 class GdiPlusInit
 {
 public:
@@ -217,9 +235,11 @@ std::wstring Utf8ToWide(const std::string& src)
   return std::wstring{dest.begin(), dest.end()};
 }
 
-std::vector<unsigned char> GetIcon(const std::string& name, IconSize size)
+std::vector<unsigned char> GetIcon(const std::string& name, IconSize size, UINT flag)
 {
-  auto flag = SHGFI_ICON | SHGFI_USEFILEATTRIBUTES;
+  ComInit init;
+
+  flag |= SHGFI_ICON;
 
   switch (size)
   {
@@ -237,7 +257,7 @@ std::vector<unsigned char> GetIcon(const std::string& name, IconSize size)
   }
 
   SHFILEINFOW sfi = {0};
-  auto hr = SHGetFileInfoW(Utf8ToWide(name).c_str(), FILE_ATTRIBUTE_NORMAL,
+  auto hr = SHGetFileInfoW(Utf8ToWide(name).c_str(), 0,
                            std::addressof(sfi), sizeof(sfi), flag);
   HICON hIcon;
 
@@ -279,11 +299,11 @@ std::vector<unsigned char> GetIcon(const std::string& name, IconSize size)
 template <>
 void SystemIconAsyncWorker<ExtensionTag>::Execute()
 {
-  this->result = GetIcon(this->name, this->size);
+  this->result = GetIcon(this->name, this->size, SHGFI_USEFILEATTRIBUTES);
 }
 
 template <>
 void SystemIconAsyncWorker<PathTag>::Execute()
 {
-  this->result = GetIcon(this->name, this->size);
+  this->result = GetIcon(this->name, this->size, 0);
 }
