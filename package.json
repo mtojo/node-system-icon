@@ -29,5 +29,6 @@
   },
   "scripts": {
     "install": "node-gyp rebuild"
-  }
+  },
+  "os" : [ "darwin", "win32" ]
 }
