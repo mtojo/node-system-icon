@@ -7,26 +7,6 @@
         ],
       }],
     ],
-    'msbuild_settings': {
-      'ClCompile': {
-        'WarningLevel': 'Level3',
-        'Optimization': 'Full',
-        'FunctionLevelLinking': 'true',
-      },
-      'Lib': {
-        'LinkTimeCodeGeneration': 'true',
-      },
-    },
-    'msvs_settings': {
-      'VCCLCompilerTool': {
-        'WarningLevel': '3',
-        'Optimization': '3',
-        'EnableFunctionLevelLinking': 'true',
-      },
-      'VCLibrarianTool': {
-        'LinkTimeCodeGeneration': 'true',
-      },
-    },
     'xcode_settings': {
       'CLANG_CXX_LANGUAGE_STANDARD': 'c++11',
       'CLANG_CXX_LIBRARY': 'libc++',
