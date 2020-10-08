@@ -60,4 +60,4 @@ NAN_MODULE_INIT(init)
            Nan::New(static_cast<int>(IconSize::ExtraLarge)));
 }
 
-NODE_MODULE(system_icon, init);
+NODE_MODULE(system_icon, init) //DONT ADD A SEMI COLON THIS IS NOT A FUNCTION CALL IT IS A MACRO
